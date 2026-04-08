@@ -707,6 +707,91 @@
       border-color: rgba(255, 255, 255, 0.4);
     }
 
+    /* CONTACT STEP */
+    .contact-step {
+      display: none;
+    }
+
+    .contact-step.active {
+      display: block;
+    }
+
+    .contact-intro {
+      margin-bottom: 36px;
+    }
+
+    .contact-intro .q-number {
+      margin-bottom: 12px;
+    }
+
+    .contact-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-group label {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .field-group input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      padding: 14px 18px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+
+    .field-group input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .field-group input:focus {
+      border-color: var(--pink);
+    }
+
+    .field-group input.invalid {
+      border-color: #ff6b6b;
+    }
+
+    .contact-note {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 500px) {
+      .contact-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* CLOSE */
     .quiz-close {
       position: fixed;
@@ -994,8 +1079,39 @@
         <div class="progress-fill" id="progressFill" style="width:12.5%"></div>
       </div>
 
+      <!-- CONTACT STEP -->
+      <div class="contact-step active" id="contactStep">
+        <div class="contact-intro">
+          <div class="q-number">Before we begin</div>
+          <div class="q-text">Who should we send your results to?</div>
+          <div class="q-sub">We'll use this to personalize your AI roadmap and follow up if you'd like to talk.</div>
+        </div>
+        <div class="contact-fields">
+          <div class="contact-row">
+            <div class="field-group">
+              <label for="fieldFirstName">First Name</label>
+              <input type="text" id="fieldFirstName" placeholder="Jane" autocomplete="given-name" />
+            </div>
+            <div class="field-group">
+              <label for="fieldLastName">Last Name</label>
+              <input type="text" id="fieldLastName" placeholder="Smith" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="fieldEmail">Work Email</label>
+            <input type="email" id="fieldEmail" placeholder="jane@yourcompany.com" autocomplete="email" />
+          </div>
+        </div>
+        <p class="contact-note">We won't spam you. Your info is only used to send your results and, if relevant, connect
+          you with our team.</p>
+        <div class="quiz-nav">
+          <span></span>
+          <button class="btn-next" id="nextContact" disabled onclick="startQuiz()">Start the Quiz &rarr;</button>
+        </div>
+      </div>
+
       <!-- Q1 -->
-      <div class="question-block active" id="q1">
+      <div class="question-block" id="q1">
         <div class="q-number">01 / 08</div>
         <div class="q-text">What's your biggest growth challenge right now?</div>
         <div class="q-sub">Choose the one that resonates most.</div>
@@ -1327,7 +1443,11 @@
   </div>
 
   <script>
+    // Google Sheets Web App URL — replace with your deployed Apps Script URL
+    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwI06cQW6DmXK5v1IU6ydbhyhJJg1oMMaIlYpdAFe-z4WIxPPPbjB1pvuUxEUDSLNJ35g/exec';
+
     // State
+    const contact = { firstName: '', lastName: '', email: '' };
     const answers = { q1: null, q2: null, q3: null, q4: null, q5: null, q6: null, q7: [], q8: [] };
     let currentQ = 1;
 
@@ -1445,6 +1565,33 @@
         ]
       }
     };
+
+    // Contact field validation
+    function validateContact() {
+      const fn = document.getElementById('fieldFirstName').value.trim();
+      const ln = document.getElementById('fieldLastName').value.trim();
+      const em = document.getElementById('fieldEmail').value.trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+      document.getElementById('nextContact').disabled = !(fn && ln && emailOk);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      ['fieldFirstName', 'fieldLastName', 'fieldEmail'].forEach(id => {
+        document.getElementById(id).addEventListener('input', validateContact);
+      });
+    });
+
+    function startQuiz() {
+      contact.firstName = document.getElementById('fieldFirstName').value.trim();
+      contact.lastName = document.getElementById('fieldLastName').value.trim();
+      contact.email = document.getElementById('fieldEmail').value.trim();
+
+      document.getElementById('contactStep').classList.remove('active');
+      document.getElementById('q1').classList.add('active');
+      currentQ = 1;
+      updateProgress();
+      window.scrollTo(0, 0);
+    }
 
     function openQuiz() {
       document.getElementById('quizOverlay').classList.add('active');
@@ -1618,6 +1765,36 @@
 
       document.getElementById('results').style.display = 'block';
       window.scrollTo(0, 0);
+
+      submitToSheets(sorted);
+    }
+
+    function submitToSheets(sorted) {
+      if (!SHEETS_URL || SHEETS_URL === 'YOUR_APPS_SCRIPT_URL_HERE') return;
+
+      const payload = {
+        timestamp: new Date().toISOString(),
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        email: contact.email,
+        q1: answers.q1,
+        q2: answers.q2,
+        q3: answers.q3,
+        q4: answers.q4,
+        q5: answers.q5,
+        q6: answers.q6,
+        q7: answers.q7.join(', '),
+        q8: answers.q8.join(', '),
+        topResult: sorted[0] || '',
+        allResults: sorted.join(', ')
+      };
+
+      fetch(SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      }).catch(() => { }); // silent fail — don't block the results view
     }
 
     function restartQuiz() {
@@ -1630,9 +1807,17 @@
       document.getElementById('results').style.display = 'none';
       document.getElementById('resultsCards').innerHTML = '';
 
+      // Clear contact fields and return to contact step
+      document.getElementById('fieldFirstName').value = '';
+      document.getElementById('fieldLastName').value = '';
+      document.getElementById('fieldEmail').value = '';
+      document.getElementById('nextContact').disabled = true;
+
       document.querySelectorAll('.question-block').forEach(b => b.classList.remove('active'));
-      document.getElementById('q1').classList.add('active');
-      updateProgress();
+      document.getElementById('contactStep').classList.add('active');
+
+      document.getElementById('progressLabel').textContent = 'Question 1 of 8';
+      document.getElementById('progressFill').style.width = '12.5%';
       window.scrollTo(0, 0);
     }
   </script>

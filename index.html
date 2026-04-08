@@ -1,1229 +1,1610 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LEVEL Intelligence Suite</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL Intelligence Suite</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;900&family=DM+Sans:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  :root {
-    --black: #000000;
-    --white: #FFFFFF;
-    --gray: #D9DEF0;
-    --pink: #FD6EF8;
-    --blue: #86D5F4;
-    --green: #8EE34D;
-    --orange: #FFAA53;
-    --purple: #B07CFF;
-    --text-secondary: rgba(255,255,255,0.75);
-    --text-muted: rgba(255,255,255,0.55);
-    --border: #2a2a2a;
-    --surface: rgba(255,255,255,0.04);
-  }
+    :root {
+      --black: #000000;
+      --white: #FFFFFF;
+      --gray: #D9DEF0;
+      --pink: #FD6EF8;
+      --blue: #86D5F4;
+      --green: #8EE34D;
+      --orange: #FFAA53;
+      --purple: #B07CFF;
+      --text-secondary: rgba(255, 255, 255, 0.75);
+      --text-muted: rgba(255, 255, 255, 0.55);
+      --border: #2a2a2a;
+      --surface: rgba(255, 255, 255, 0.04);
+    }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--black);
-    color: var(--white);
-    min-height: 100vh;
-    font-size: 1rem;
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+      font-size: 1rem;
+    }
 
-  /* HEADER */
-  .site-header {
-    background: var(--black);
-    border-bottom: 1px solid var(--border);
-  }
+    /* HEADER */
+    .site-header {
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+    }
 
-  /* NAV */
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 32px 48px;
-    border-bottom: 1px solid var(--border);
-  }
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 48px;
+      border-bottom: 1px solid var(--border);
+    }
 
-  .logo img {
-    height: 48px;
-    width: auto;
-    display: block;
-  }
+    .logo img {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
 
-  .nav-tag {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-  }
+    .nav-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
 
-  /* HERO — two-column layout matching LIS page */
-  .hero-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-    align-items: center;
-    padding: 48px 48px 64px;
-    text-align: center;
-  }
-
-  .hero-viz {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    order: -1; /* image above text on mobile */
-  }
-
-  .hero-viz img {
-    width: 100%;
-    max-width: 540px;
-    height: auto;
-    display: block;
-    border-radius: 4px;
-  }
-
-  .hero-eyebrow {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--pink);
-    margin-bottom: 16px;
-  }
-
-  .hero h1 {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 900;
-    font-size: clamp(2rem, 4vw, 3.25rem);
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 20px;
-    letter-spacing: -0.02em;
-  }
-
-  .hero h1 span { color: var(--pink); }
-
-  .hero p {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    margin-bottom: 14px;
-  }
-
-  @media (min-width: 900px) {
+    /* HERO — two-column layout matching LIS page */
     .hero-inner {
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      text-align: left;
-      padding: 64px 48px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 48px 48px 64px;
+      text-align: center;
     }
 
     .hero-viz {
-      order: 0; /* image on right on desktop/tablet landscape */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      order: -1;
+      /* image above text on mobile */
+    }
+
+    .hero-viz img {
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 16px;
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 4vw, 3.75rem);
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
     }
-  }
-
-  /* SUITE TOOLS */
-  .suite-section {
-    padding: 64px 48px 72px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 0;
-  }
-
-  .suite-section-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .suite-section-label {
-    font-size: 0.875rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 36px;
-  }
-
-  .suite-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    background: var(--border);
-  }
-
-  .suite-item {
-    background: var(--black);
-    padding: 40px 36px;
-    display: flex;
-    align-items: flex-start;
-    gap: 28px;
-    transition: background 0.2s;
-    position: relative;
-  }
-
-  .suite-item:hover { background: rgba(255,255,255,0.04); }
-
-  /* Last item (5th) spans full width */
-  .suite-item:last-child {
-    grid-column: 1 / -1;
-  }
-
-  /* Per-tool accent colors */
-  .suite-item[data-tool="Signal"]    { --item-color: var(--blue); }
-  .suite-item[data-tool="Pathfinder"]{ --item-color: var(--green); }
-  .suite-item[data-tool="Prism"]     { --item-color: var(--pink); }
-  .suite-item[data-tool="Pulse"]     { --item-color: var(--orange); }
-  .suite-item[data-tool="Foundry"]   { --item-color: var(--purple); }
-
-  .suite-icon {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .suite-icon svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-
-  /* Outer ring: use tool accent color */
-  .suite-item[data-tool="Signal"]     .suite-icon svg .ring { stroke: var(--blue); }
-  .suite-item[data-tool="Pathfinder"] .suite-icon svg .ring { stroke: var(--green); }
-  .suite-item[data-tool="Prism"]      .suite-icon svg .ring { stroke: var(--pink); }
-  .suite-item[data-tool="Pulse"]      .suite-icon svg .ring { stroke: var(--orange); }
-  .suite-item[data-tool="Foundry"]    .suite-icon svg .ring { stroke: var(--purple); }
-
-  .suite-text { flex: 1; }
-
-  .suite-name {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 900;
-    font-size: 1.375rem;
-    color: var(--white);
-    margin-bottom: 8px;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-  }
-
-  .suite-name .prefix {
-    color: var(--item-color, var(--pink));
-    font-weight: 400;
-  }
-
-  .suite-desc {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
-
-  /* QUIZ CTA */
-  .quiz-cta {
-    padding: 0 48px 96px;
-    text-align: center;
-  }
-
-  .quiz-cta h2 {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 900;
-    font-size: clamp(26px, 3.5vw, 44px);
-    letter-spacing: -0.01em;
-    margin-bottom: 16px;
-  }
-
-  .quiz-cta p {
-    font-size: 1.0625rem;
-    color: var(--text-secondary);
-    margin-bottom: 36px;
-  }
-
-  .btn-primary {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: var(--pink);
-    color: var(--black);
-    border: none;
-    padding: 18px 44px;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
-  }
-
-  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
-  /* QUIZ MODAL OVERLAY */
-  .quiz-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: var(--black);
-    z-index: 100;
-    overflow-y: auto;
-  }
-
-  .quiz-overlay.active { display: block; }
-
-  .quiz-inner {
-    max-width: 740px;
-    margin: 0 auto;
-    padding: 56px 32px 96px;
-  }
-
-  /* PROGRESS */
-  .progress-bar {
-    height: 2px;
-    background: var(--border);
-    margin-bottom: 56px;
-    position: relative;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--pink);
-    transition: width 0.4s ease;
-  }
-
-  .progress-label {
-    font-size: 1rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-  }
-
-  /* QUESTION */
-  .question-block { display: none; }
-  .question-block.active { display: block; }
-
-  .q-number {
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--pink);
-    margin-bottom: 18px;
-  }
-
-  .q-text {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 900;
-    font-size: clamp(24px, 3vw, 36px);
-    line-height: 1.15;
-    margin-bottom: 10px;
-    color: var(--white);
-    letter-spacing: -0.01em;
-  }
-
-  .q-sub {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 36px;
-  }
-
-  /* OPTIONS */
-  .options { display: flex; flex-direction: column; gap: 12px; }
-
-  .option {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 20px 22px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    user-select: none;
-  }
-
-  .option:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.06); }
-  .option.selected { border-color: var(--pink); background: rgba(253,110,248,0.08); }
-
-  .option-marker {
-    width: 22px;
-    height: 22px;
-    min-width: 22px;
-    border: 1.5px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 0.15s, background 0.15s;
-    flex-shrink: 0;
-  }
-
-  .option.selected .option-marker {
-    border-color: var(--pink);
-    background: var(--pink);
-  }
-
-  .option-marker-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--black);
-    display: none;
-  }
-
-  .option.selected .option-marker-dot { display: block; }
-
-  /* multi select uses square */
-  .multi .option-marker { border-radius: 3px; }
-
-  .option-text {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-  }
-
-  .option.selected .option-text { color: var(--white); }
-
-  /* NAV BUTTONS */
-  .quiz-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 44px;
-  }
-
-  .btn-back {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: none;
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-    padding: 13px 26px;
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .btn-back:hover { color: var(--white); border-color: rgba(255,255,255,0.4); }
-
-  .btn-next {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: var(--white);
-    color: var(--black);
-    border: none;
-    padding: 15px 36px;
-    cursor: pointer;
-    transition: background 0.2s, opacity 0.2s;
-  }
-
-  .btn-next:disabled { opacity: 0.25; cursor: not-allowed; }
-  .btn-next:not(:disabled):hover { background: var(--gray); }
-  .btn-next.final { background: var(--pink); color: var(--black); }
-
-  /* RESULTS */
-  #results { display: none; }
-  #results.active { display: block; }
-
-  .results-header {
-    margin-bottom: 52px;
-  }
-
-  .results-eyebrow {
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--pink);
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .results-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 32px;
-    height: 2px;
-    background: var(--pink);
-    flex-shrink: 0;
-  }
-
-  .results-header h2 {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 900;
-    font-size: clamp(28px, 4vw, 48px);
-    line-height: 1.1;
-    margin-bottom: 14px;
-    letter-spacing: -0.01em;
-  }
-
-  .results-header p {
-    font-size: 1.0625rem;
-    color: var(--text-secondary);
-  }
-
-  .result-card {
-    border: 1px solid var(--border);
-    background: var(--surface);
-    padding: 36px;
-    margin-bottom: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .result-card.primary { border-color: var(--pink); background: rgba(253,110,248,0.05); }
-  .result-card.primary::before {
-    content: 'TOP RECOMMENDATION';
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    font-size: 0.6875rem;
-    letter-spacing: 0.2em;
-    color: var(--pink);
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 700;
-  }
-
-  .result-tool-name {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 900;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-
-  .result-tool-name .prefix { color: var(--text-muted); font-weight: 400; }
-  .result-card.primary .result-tool-name .prefix { color: var(--pink); }
-
-  .result-tag {
-    font-size: 0.8125rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-  }
-
-  .result-why {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-  }
-
-  .result-cta {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 700;
-    font-size: 0.8125rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--pink);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(253,110,248,0.35);
-    padding-bottom: 2px;
-    cursor: pointer;
-    background: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    transition: border-color 0.2s;
-  }
-
-  .result-cta:hover { border-bottom-color: var(--pink); }
-
-  .score-bar-wrap { margin-bottom: 8px; }
-  .score-bar-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8125rem;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .score-bar {
-    height: 3px;
-    background: var(--border);
-    width: 100%;
-  }
-
-  .score-bar-fill {
-    height: 100%;
-    background: var(--pink);
-    transition: width 0.8s ease;
-  }
-
-  .result-card.secondary .score-bar-fill { background: rgba(255,255,255,0.35); }
-
-  .results-footer {
-    margin-top: 56px;
-    padding-top: 36px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
-
-  .results-footer p {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-  }
-
-  .btn-restart {
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 700;
-    font-size: 0.875rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: none;
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-    padding: 13px 26px;
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-    margin-left: 16px;
-  }
-
-  .btn-restart:hover { color: var(--white); border-color: rgba(255,255,255,0.4); }
-
-  /* CLOSE */
-  .quiz-close {
-    position: fixed;
-    top: 24px;
-    right: 36px;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 28px;
-    cursor: pointer;
-    z-index: 200;
-    line-height: 1;
-    transition: color 0.2s;
-  }
-  .quiz-close:hover { color: var(--white); }
-
-  /* ACCENT LINE */
-  .accent-line {
-    width: 40px;
-    height: 3px;
-    background: var(--pink);
-    margin-bottom: 32px;
-  }
-
-  /* DIVIDER */
-  .section-divider {
-    width: 100%;
-    height: 1px;
-    background: var(--border);
-    margin: 0;
-  }
-
-  /* TABLET (primary target: 768px–1024px) */
-  @media (max-width: 1024px) {
-    nav { padding: 28px 36px; }
-    .hero-inner { padding: 40px 36px 56px; }
-    .suite-section { padding: 52px 36px 60px; }
-    .quiz-cta { padding: 0 36px 80px; }
-    .suite-icon { width: 72px; height: 72px; }
-  }
-
-  @media (max-width: 700px) {
-    nav, .quiz-cta { padding-left: 24px; padding-right: 24px; }
-    .hero-inner { padding: 32px 24px 48px; }
-    .logo img { height: 38px; }
-    .suite-section { padding: 40px 24px 48px; }
-    .suite-grid { grid-template-columns: 1fr; }
-    .suite-item:last-child { grid-column: auto; }
-    .suite-item { padding: 28px 24px; gap: 20px; }
-    .suite-icon { width: 64px; height: 64px; }
-    .suite-name { font-size: 1.25rem; }
-    .quiz-inner { padding: 40px 20px 72px; }
-    .quiz-close { top: 16px; right: 20px; }
-    .result-card.primary::before { display: none; }
-  }
-</style>
+
+    .hero h1 span {
+      color: var(--pink);
+    }
+
+    .hero p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.125rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        text-align: left;
+        padding: 64px 48px 80px;
+      }
+
+      .hero-viz {
+        order: 0;
+        /* image on right on desktop/tablet landscape */
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 4vw, 3.75rem);
+      }
+    }
+
+    /* SUITE TOOLS */
+    .suite-section {
+      padding: 64px 48px 72px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    .suite-section-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .suite-section-label {
+      font-size: 0.875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+
+    .suite-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .suite-item {
+      background: var(--black);
+      padding: 40px 36px;
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .suite-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Last item (5th) spans full width */
+    .suite-item:last-child {
+      grid-column: 1 / -1;
+    }
+
+    /* Per-tool accent colors */
+    .suite-item[data-tool="Signal"] {
+      --item-color: var(--blue);
+    }
+
+    .suite-item[data-tool="Pathfinder"] {
+      --item-color: var(--green);
+    }
+
+    .suite-item[data-tool="Prism"] {
+      --item-color: var(--pink);
+    }
+
+    .suite-item[data-tool="Pulse"] {
+      --item-color: var(--orange);
+    }
+
+    .suite-item[data-tool="Foundry"] {
+      --item-color: var(--purple);
+    }
+
+    .suite-icon {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .suite-icon svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Outer ring: use tool accent color */
+    .suite-item[data-tool="Signal"] .suite-icon svg .ring {
+      stroke: var(--blue);
+    }
+
+    .suite-item[data-tool="Pathfinder"] .suite-icon svg .ring {
+      stroke: var(--green);
+    }
+
+    .suite-item[data-tool="Prism"] .suite-icon svg .ring {
+      stroke: var(--pink);
+    }
+
+    .suite-item[data-tool="Pulse"] .suite-icon svg .ring {
+      stroke: var(--orange);
+    }
+
+    .suite-item[data-tool="Foundry"] .suite-icon svg .ring {
+      stroke: var(--purple);
+    }
+
+    .suite-text {
+      flex: 1;
+    }
+
+    .suite-name {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 900;
+      font-size: 1.375rem;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .suite-name .prefix {
+      color: var(--item-color, var(--pink));
+      font-weight: 400;
+    }
+
+    .suite-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* QUIZ CTA */
+    .quiz-cta {
+      padding: 0 48px 96px;
+      text-align: center;
+    }
+
+    .quiz-cta h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 900;
+      font-size: clamp(26px, 3.5vw, 44px);
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+
+    .quiz-cta p {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+    }
+
+    .btn-primary {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--pink);
+      color: var(--black);
+      border: none;
+      padding: 18px 44px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    /* QUIZ MODAL OVERLAY */
+    .quiz-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .quiz-overlay.active {
+      display: block;
+    }
+
+    .quiz-inner {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 56px 32px 96px;
+    }
+
+    /* PROGRESS */
+    .progress-bar {
+      height: 2px;
+      background: var(--border);
+      margin-bottom: 56px;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--pink);
+      transition: width 0.4s ease;
+    }
+
+    .progress-label {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    /* QUESTION */
+    .question-block {
+      display: none;
+    }
+
+    .question-block.active {
+      display: block;
+    }
+
+    .q-number {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 18px;
+    }
+
+    .q-text {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 900;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.15;
+      margin-bottom: 10px;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+
+    .q-sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+    }
+
+    /* OPTIONS */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+
+    .option:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .option.selected {
+      border-color: var(--pink);
+      background: rgba(253, 110, 248, 0.08);
+    }
+
+    .option-marker {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .option.selected .option-marker {
+      border-color: var(--pink);
+      background: var(--pink);
+    }
+
+    .option-marker-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--black);
+      display: none;
+    }
+
+    .option.selected .option-marker-dot {
+      display: block;
+    }
+
+    /* multi select uses square */
+    .multi .option-marker {
+      border-radius: 3px;
+    }
+
+    .option-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .option.selected .option-text {
+      color: var(--white);
+    }
+
+    /* NAV BUTTONS */
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 44px;
+    }
+
+    .btn-back {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: none;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 13px 26px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-back:hover {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-next {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      padding: 15px 36px;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+
+    .btn-next:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    .btn-next:not(:disabled):hover {
+      background: var(--gray);
+    }
+
+    .btn-next.final {
+      background: var(--pink);
+      color: var(--black);
+    }
+
+    /* RESULTS */
+    #results {
+      display: none;
+    }
+
+    #results.active {
+      display: block;
+    }
+
+    .results-header {
+      margin-bottom: 52px;
+    }
+
+    .results-eyebrow {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .results-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 2px;
+      background: var(--pink);
+      flex-shrink: 0;
+    }
+
+    .results-header h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.1;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .results-header p {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+    }
+
+    .result-card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 36px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-card.primary {
+      border-color: var(--pink);
+      background: rgba(253, 110, 248, 0.05);
+    }
+
+    .result-card.primary::before {
+      content: 'TOP RECOMMENDATION';
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      color: var(--pink);
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+    }
+
+    .result-tool-name {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .result-tool-name .prefix {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .result-card.primary .result-tool-name .prefix {
+      color: var(--pink);
+    }
+
+    .result-tag {
+      font-size: 0.8125rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .result-why {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .result-cta {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(253, 110, 248, 0.35);
+      padding-bottom: 2px;
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      transition: border-color 0.2s;
+    }
+
+    .result-cta:hover {
+      border-bottom-color: var(--pink);
+    }
+
+    .score-bar-wrap {
+      margin-bottom: 8px;
+    }
+
+    .score-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .score-bar {
+      height: 3px;
+      background: var(--border);
+      width: 100%;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      background: var(--pink);
+      transition: width 0.8s ease;
+    }
+
+    .result-card.secondary .score-bar-fill {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .results-footer {
+      margin-top: 56px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .results-footer p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .btn-restart {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 13px 26px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-left: 16px;
+    }
+
+    .btn-restart:hover {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* CLOSE */
+    .quiz-close {
+      position: fixed;
+      top: 24px;
+      right: 36px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 200;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .quiz-close:hover {
+      color: var(--white);
+    }
+
+    /* ACCENT LINE */
+    .accent-line {
+      width: 40px;
+      height: 3px;
+      background: var(--pink);
+      margin-bottom: 32px;
+    }
+
+    /* DIVIDER */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* TABLET (primary target: 768px–1024px) */
+    @media (max-width: 1024px) {
+      nav {
+        padding: 28px 36px;
+      }
+
+      .hero-inner {
+        padding: 40px 36px 56px;
+      }
+
+      .suite-section {
+        padding: 52px 36px 60px;
+      }
+
+      .quiz-cta {
+        padding: 0 36px 80px;
+      }
+
+      .suite-icon {
+        width: 72px;
+        height: 72px;
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      nav,
+      .quiz-cta {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .hero-inner {
+        padding: 32px 24px 48px;
+      }
+
+      .logo img {
+        height: 38px;
+      }
+
+      .suite-section {
+        padding: 40px 24px 48px;
+      }
+
+      .suite-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .suite-item:last-child {
+        grid-column: auto;
+      }
+
+      .suite-item {
+        padding: 28px 24px;
+        gap: 20px;
+      }
+
+      .suite-icon {
+        width: 64px;
+        height: 64px;
+      }
+
+      .suite-name {
+        font-size: 1.25rem;
+      }
+
+      .quiz-inner {
+        padding: 40px 20px 72px;
+      }
+
+      .quiz-close {
+        top: 16px;
+        right: 20px;
+      }
+
+      .result-card.primary::before {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <nav>
-    <a href="https://www.level.agency" class="logo">
-      <img src="https://www.level.agency/wp-content/uploads/2025/12/logo-primary-white.png" alt="LEVEL" />
-    </a>
-  </nav>
+  <!-- HEADER -->
+  <header class="site-header">
+    <nav>
+      <a href="https://www.level.agency" class="logo">
+        <img src="https://www.level.agency/wp-content/uploads/2025/12/logo-primary-white.png" alt="LEVEL" />
+      </a>
+    </nav>
 
-  <div class="hero-inner">
-    <section class="hero">
-      <div class="hero-eyebrow">Level Intelligence Suite</div>
-      <h1>AI-powered tools that make your business <span>smarter every day.</span></h1>
-      <p>The Level Intelligence Suite is a set of proprietary AI systems built to give our clients a compounding advantage — from finding the right leads to winning with the right creative to optimizing in real time.</p>
-      <p>Every tool works independently. Together, they support your full growth journey.</p>
-    </section>
-    <div class="hero-viz">
-      <img src="https://www.level.agency/wp-content/uploads/2026/03/level-intelligence-suite.jpg" alt="Level Intelligence Suite" />
+    <div class="hero-inner">
+      <section class="hero">
+        <div class="hero-eyebrow">Level Intelligence Suite</div>
+        <h1>AI-powered tools that make your business <span>smarter every day.</span></h1>
+        <p>The Level Intelligence Suite is a set of proprietary AI systems built to give our clients a compounding
+          advantage — from finding the right leads to winning with the right creative to optimizing in real time.</p>
+        <p>Every tool works independently. Together, they support your full growth journey.</p>
+      </section>
+      <div class="hero-viz">
+        <img src="https://www.level.agency/wp-content/uploads/2026/03/level-intelligence-suite.jpg"
+          alt="Level Intelligence Suite" />
+      </div>
+    </div>
+  </header>
+
+  <!-- SUITE TOOLS -->
+  <div class="suite-section">
+    <div class="suite-section-inner">
+      <div class="suite-section-label">An overview of the tools</div>
+      <div class="suite-grid">
+
+        <!-- Signal -->
+        <div class="suite-item" data-tool="Signal">
+          <div class="suite-icon">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g opacity=".97">
+                <circle class="ring" cx="253.22" cy="250" r="215.69" fill="none" stroke="#fd6ef8" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="9.54" />
+                <circle cx="253.7" cy="258.94" r="50.5" fill="none" stroke="#fff" stroke-miterlimit="10"
+                  stroke-width="9.54" />
+                <path
+                  d="M363.28,352.24c21.42-25.13,34.37-57.69,34.37-93.3,0-79.5-64.45-143.95-143.95-143.95s-143.95,64.45-143.95,143.95c0,35.61,12.96,68.17,34.37,93.3"
+                  fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="9.54" />
+                <path
+                  d="M332.57,317.3c12.09-16.31,19.25-36.5,19.25-58.36,0-54.19-43.93-98.11-98.11-98.11s-98.11,43.93-98.11,98.11c0,21.86,7.16,42.05,19.25,58.36"
+                  fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="9.54" />
+              </g>
+            </svg>
+          </div>
+          <div class="suite-text">
+            <div class="suite-name"><span class="prefix">Level.</span>Signal</div>
+            <div class="suite-desc">Predictive lead &amp; value modeling built on Google Cloud.</div>
+          </div>
+        </div>
+
+        <!-- Pathfinder -->
+        <div class="suite-item" data-tool="Pathfinder">
+          <div class="suite-icon">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g opacity=".97">
+                <path
+                  d="M135.59,295.69c-.02-5.71,2.11-11.21,5.97-15.41,4.36-4.79,10.53-7.52,17-7.53h181.9c11.95.18,22.13-8.66,23.63-20.52.66-6.4-1.46-12.78-5.81-17.53-4.32-4.73-10.43-7.44-16.84-7.44h-159.04c-12.07.18-22.35-8.75-23.85-20.73-.07-.76-.11-1.53-.11-2.29-.02-5.7,2.11-11.21,5.97-15.41,4.36-4.78,10.53-7.51,17-7.52h101.88c11.95.18,22.13-8.66,23.63-20.52,1.23-12.51-7.92-23.64-20.43-24.87-.74-.07-1.48-.11-2.22-.11h-34.29c-12.68-.01-22.96-10.29-22.97-22.97,0-.06.06-.1.12-.11.06,0,.1.05.11.11.02,12.56,10.19,22.73,22.74,22.75h34.29c6.47,0,12.65,2.73,17.01,7.52,3.86,4.21,5.99,9.71,5.97,15.42,0,.75-.04,1.53-.11,2.29-1.51,11.98-11.79,20.9-23.86,20.72h-101.88c-6.41,0-12.52,2.71-16.84,7.44-3.82,4.17-5.93,9.62-5.92,15.27,0,.75.03,1.51.11,2.26,1.5,11.86,11.67,20.7,23.63,20.52h159.04c6.48,0,12.65,2.73,17.01,7.52,3.86,4.21,5.99,9.71,5.97,15.42,0,.76-.05,1.53-.12,2.29-1.51,11.97-11.78,20.9-23.85,20.71h-181.9c-6.41,0-12.52,2.71-16.84,7.44-3.82,4.17-5.93,9.62-5.92,15.27,0,.75.03,1.5.11,2.25,1.49,11.86,11.67,20.71,23.63,20.53h101.89c6.47,0,12.64,2.74,17,7.53,4.4,4.79,6.53,11.23,5.86,17.7-1.5,11.98-11.78,20.9-23.85,20.72h-10.5c-12.53.01-22.68,10.16-22.69,22.69v.06c0,.06-.05.11-.11.11-.06,0-.11-.05-.12-.11v-.06c.02-12.65,10.27-22.89,22.92-22.91h10.5c11.95.17,22.12-8.66,23.62-20.51.66-6.41-1.46-12.79-5.82-17.53-4.31-4.74-10.41-7.45-16.82-7.46h-101.89c-12.07.18-22.35-8.74-23.86-20.72-.06-.77-.1-1.53-.1-2.29Z"
+                  fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54" />
+                <ellipse class="ring" cx="250" cy="250" rx="216.29" ry="216.27" fill="none" stroke="#fd6ef8"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54" />
+              </g>
+            </svg>
+          </div>
+          <div class="suite-text">
+            <div class="suite-name"><span class="prefix">Level.</span>Pathfinder</div>
+            <div class="suite-desc">Deep customer intelligence across the full journey.</div>
+          </div>
+        </div>
+
+        <!-- Prism -->
+        <div class="suite-item" data-tool="Prism">
+          <div class="suite-icon">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g opacity=".97">
+                <circle class="ring" cx="250" cy="250" r="215.82" fill="none" stroke="#fd6ef8" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="9.54" />
+                <path d="M219.21,165.24l-98.78,160.9,124.09,53.76,5.75-259.82,129.3,205.17-101.08,46.47" fill="none"
+                  stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54" />
+              </g>
+            </svg>
+          </div>
+          <div class="suite-text">
+            <div class="suite-name"><span class="prefix">Level.</span>Prism</div>
+            <div class="suite-desc">Creative intelligence &amp; performance prediction.</div>
+          </div>
+        </div>
+
+        <!-- Pulse -->
+        <div class="suite-item" data-tool="Pulse">
+          <div class="suite-icon">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g opacity=".97">
+                <circle class="ring" cx="250" cy="250" r="215.69" fill="none" stroke="#fd6ef8" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="9.54" />
+                <path
+                  d="M289.58,340.05c-10.06,0-14.89-43.73-19.99-90.03-4.85-44.09-9.88-89.71-19.61-89.71s-14.77,45.62-19.6,89.71c-5.1,46.3-9.91,90.03-19.99,90.03s-14.89-33.54-20-69.05c-4.85-33.8-9.87-68.74-19.62-68.74-9.16,0-12.92,17.16-16.88,35.31-4.54,20.96-9.25,42.58-22.73,42.58h-24.96c-.09,0-.17-.06-.18-.15v-.02c0-.09.07-.17.16-.18h24.98c13.19,0,17.87-21.49,22.41-42.28,4.01-18.32,7.76-35.62,17.23-35.62,10.06,0,14.89,33.55,19.99,69.06,4.85,33.79,9.88,68.74,19.62,68.74s14.76-45.61,19.62-89.71c5.1-46.3,9.93-90.03,19.99-90.03s14.89,43.73,19.97,90.03c4.86,44.09,9.89,89.71,19.62,89.71s14.77-34.95,19.62-68.74c5.1-35.51,9.93-69.06,20-69.06,9.46,0,13.24,17.3,17.23,35.62,4.47,20.78,9.18,42.28,22.33,42.28h24.97c.1,0,.18.07.18.17h0c0,.1-.08.17-.18.17h-24.97c-13.47,0-18.19-21.63-22.75-42.57-3.96-18.16-7.71-35.31-16.88-35.31-9.73,0-14.77,34.94-19.62,68.74-5.09,35.52-9.9,69.05-19.96,69.05Z"
+                  fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54" />
+              </g>
+            </svg>
+          </div>
+          <div class="suite-text">
+            <div class="suite-name"><span class="prefix">Level.</span>Pulse</div>
+            <div class="suite-desc">Live campaign performance &amp; real-time insights.</div>
+          </div>
+        </div>
+
+        <!-- Foundry -->
+        <div class="suite-item" data-tool="Foundry">
+          <div class="suite-icon">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g opacity=".97">
+                <circle class="ring" cx="250" cy="249.99" r="215.69" fill="none" stroke="#fd6ef8" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="9.54" />
+                <path
+                  d="M306.69,212.11l-150.04,122.5c-2.89,2.35-3.31,6.6-.94,9.48l18.04,21.9c2.26,2.75,6.28,3.26,9.15,1.15,17.11-12.55,71.43-53.06,76.07-64.91,5.52-14.08,65.83-67.56,65.83-67.56l-18.1-22.56Z"
+                  fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54" />
+                <path
+                  d="M264.43,159.44l91.93,114.58c2.24,2.79,6.32,3.23,9.1.98l36-29.17c2.77-2.25,3.2-6.32.94-9.09l-54.33-66.79c-5.5-6.76-12.5-12.15-20.45-15.74h0c-8.95-4.04-18.8-5.66-28.57-4.69l-31.76,3.13c-3.32.33-4.95,4.2-2.86,6.8Z"
+                  fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54" />
+                <path
+                  d="M352.03,174.8l11.04-8.98c3.34-2.72,8.24-2.24,11,1.06l8.91,10.66c2.81,3.37,2.33,8.38-1.07,11.15l-11.19,9.1,20.2,24.83-46.11,37"
+                  fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54" />
+                <path d="M251.68,257.03l-55.01-44.91-18.1,22.56s26.55,23.68,45.77,44.68" fill="none" stroke="#fff"
+                  stroke-miterlimit="10" stroke-width="9.54" />
+                <path
+                  d="M278.24,278.71l68.47,55.9c2.89,2.35,3.31,6.6.94,9.48l-18.04,21.9c-2.26,2.75-6.28,3.26-9.15,1.15-15.82-11.61-57.47-41.55-68.2-56.19"
+                  fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54" />
+                <path
+                  d="M238.93,159.44l-91.93,114.58c-2.24,2.79-6.32,3.23-9.1.98l-36-29.17c-2.77-2.25-3.2-6.32-.94-9.09l54.33-66.79c5.5-6.76,12.5-12.15,20.45-15.74h0c8.95-4.04,18.8-5.66,28.57-4.69l31.76,3.13c3.32.33,4.95,4.2,2.86,6.8Z"
+                  fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54" />
+                <path
+                  d="M151.33,174.8l-11.04-8.98c-3.34-2.72-8.24-2.24-11,1.06l-8.91,10.66c-2.81,3.37-2.33,8.38,1.07,11.15l11.19,9.1-20.2,24.83,46.11,37"
+                  fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54" />
+              </g>
+            </svg>
+          </div>
+          <div class="suite-text">
+            <div class="suite-name"><span class="prefix">Level.</span>Foundry</div>
+            <div class="suite-desc">Agentic web development &amp; rapid optimization.</div>
+          </div>
+        </div>
+
+      </div><!-- /suite-grid -->
+    </div><!-- /suite-section-inner -->
+  </div><!-- /suite-section -->
+
+  <!-- QUIZ CTA -->
+  <div class="quiz-cta">
+    <div class="accent-line" style="margin:0 auto 24px;"></div>
+    <h2>Which of Level Agency’s AI-powered tools are right for you?</h2>
+    <p>Answer 8 quick questions and we'll build your personalized roadmap.</p>
+    <button class="btn-primary" onclick="openQuiz()">Take the Quiz &rarr;</button>
+  </div>
+
+  <!-- QUIZ OVERLAY -->
+  <div class="quiz-overlay" id="quizOverlay">
+    <button class="quiz-close" onclick="closeQuiz()" aria-label="Close quiz">&#x2715;</button>
+
+    <div class="quiz-inner" id="quizInner">
+
+      <div class="progress-label" id="progressLabel">Question 1 of 8</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:12.5%"></div>
+      </div>
+
+      <!-- Q1 -->
+      <div class="question-block active" id="q1">
+        <div class="q-number">01 / 08</div>
+        <div class="q-text">What's your biggest growth challenge right now?</div>
+        <div class="q-sub">Choose the one that resonates most.</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q1',0)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Finding and prioritizing the right leads</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q1',1)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Understanding our customers deeply enough to reach them effectively</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q1',2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Figuring out what creative and messaging is actually working</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q1',3)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Getting clear performance insights fast enough to act on them</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q1',4)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Building and optimizing our web presence quickly enough</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <span></span>
+          <button class="btn-next" id="next1" disabled onclick="nextQ(1)">Next &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-block" id="q2">
+        <div class="q-number">02 / 08</div>
+        <div class="q-text">How confident are you in your ability to identify your highest-value prospects?</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q2',0)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Very confident — we have strong data and predictive models</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q2',1)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Somewhat — but we rely on gut instinct more than we'd like</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q2',2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Not very — we're casting a wide net and hoping</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q2',3)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We don't have a real lead prioritization process</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn-back" onclick="prevQ(2)">&#x2190; Back</button>
+          <button class="btn-next" id="next2" disabled onclick="nextQ(2)">Next &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-block" id="q3">
+        <div class="q-number">03 / 08</div>
+        <div class="q-text">How well do you understand your customer across their full journey?</div>
+        <div class="q-sub">From first awareness through to conversion and loyalty.</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q3',0)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Very well — we have rich first-party data and clear, data-driven personas</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q3',1)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We understand parts of it but have significant blind spots</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q3',2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We have basic personas but they're not really data-driven</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q3',3)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Not well at all — we're largely guessing who our customer is</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn-back" onclick="prevQ(3)">&#x2190; Back</button>
+          <button class="btn-next" id="next3" disabled onclick="nextQ(3)">Next &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-block" id="q4">
+        <div class="q-number">04 / 08</div>
+        <div class="q-text">How do you decide what creative to make — and what to keep running?</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q4',0)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We have a strong testing framework and clear creative analytics</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q4',1)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We look at performance data but can't always tell why things work</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q4',2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We go mostly on instinct and experience</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q4',3)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We'd love to predict what will work before we spend on it</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn-back" onclick="prevQ(4)">&#x2190; Back</button>
+          <button class="btn-next" id="next4" disabled onclick="nextQ(4)">Next &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-block" id="q5">
+        <div class="q-number">05 / 08</div>
+        <div class="q-text">How quickly can you access meaningful performance insights when a campaign is live?</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q5',0)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">In real time — we have solid live dashboards and act fast</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q5',1)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Within a day or two, but the delay costs us optimization opportunities</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q5',2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">It takes too long — by the time we have data, it's hard to act</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q5',3)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We're often flying blind mid-campaign</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn-back" onclick="prevQ(5)">&#x2190; Back</button>
+          <button class="btn-next" id="next5" disabled onclick="nextQ(5)">Next &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-block" id="q6">
+        <div class="q-number">06 / 08</div>
+        <div class="q-text">Which best describes your current situation when it comes to web development and testing?
+        </div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q6',0)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We move fast — we can spin up pages and run tests easily</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q6',1)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We're slow — web changes go through a long, frustrating process</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q6',2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We struggle to connect our website experience with our broader marketing</div>
+          </div>
+          <div class="option" onclick="selectOption(this,'q6',3)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We need to build or rebuild fast and don't have the resources</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn-back" onclick="prevQ(6)">&#x2190; Back</button>
+          <button class="btn-next" id="next6" disabled onclick="nextQ(6)">Next &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="question-block" id="q7">
+        <div class="q-number">07 / 08</div>
+        <div class="q-text">What kind of data do you have access to today?</div>
+        <div class="q-sub">Select all that apply.</div>
+        <div class="options multi" id="q7opts">
+          <div class="option" onclick="selectMulti(this,'q7',0)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">First-party customer data (CRM, transactions, customer records)</div>
+          </div>
+          <div class="option" onclick="selectMulti(this,'q7',1)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Third-party audience or market data</div>
+          </div>
+          <div class="option" onclick="selectMulti(this,'q7',2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Campaign and media performance data</div>
+          </div>
+          <div class="option" onclick="selectMulti(this,'q7',3)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Website and conversion data</div>
+          </div>
+          <div class="option" onclick="selectMulti(this,'q7',4)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">We have limited data and need help building a foundation</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn-back" onclick="prevQ(7)">&#x2190; Back</button>
+          <button class="btn-next" id="next7" disabled onclick="nextQ(7)">Next &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="question-block" id="q8">
+        <div class="q-number">08 / 08</div>
+        <div class="q-text">What does success look like for you in the next 12 months?</div>
+        <div class="q-sub">Select up to 2.</div>
+        <div class="options multi" id="q8opts">
+          <div class="option" onclick="selectMultiMax(this,'q8',0,2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Drive more qualified leads and improve conversion rates</div>
+          </div>
+          <div class="option" onclick="selectMultiMax(this,'q8',1,2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Get smarter about who our customers are and how to reach them</div>
+          </div>
+          <div class="option" onclick="selectMultiMax(this,'q8',2,2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Make our creative work harder and spend more efficiently</div>
+          </div>
+          <div class="option" onclick="selectMultiMax(this,'q8',3,2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Have real-time visibility into what's working so we can move fast</div>
+          </div>
+          <div class="option" onclick="selectMultiMax(this,'q8',4,2)">
+            <div class="option-marker">
+              <div class="option-marker-dot"></div>
+            </div>
+            <div class="option-text">Build and optimize our digital presence faster than ever before</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn-back" onclick="prevQ(8)">&#x2190; Back</button>
+          <button class="btn-next final" id="next8" disabled onclick="showResults()">See My Results &rarr;</button>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="results">
+        <div class="results-header">
+          <div class="results-eyebrow">Your AI Roadmap</div>
+          <h2>Here's where LEVEL Intelligence can make the biggest impact.</h2>
+          <p>Based on your responses, here are the tools we'd recommend — starting with your highest-impact opportunity.
+          </p>
+        </div>
+        <div id="resultsCards"></div>
+        <div class="results-footer">
+          <p>Ready to put these tools to work? Let's talk about your roadmap.</p>
+          <button class="btn-primary"
+            onclick="window.open('https://www.level.agency/book-a-strategy-call/','_blank')">Talk to Our Team
+            &rarr;</button>
+          <button class="btn-restart" onclick="restartQuiz()">Retake Quiz</button>
+        </div>
+      </div>
+
     </div>
   </div>
-</header>
 
-<!-- SUITE TOOLS -->
-<div class="suite-section">
-  <div class="suite-section-inner">
-  <div class="suite-section-label">The Intelligence Suite</div>
-  <div class="suite-grid">
+  <script>
+    // State
+    const answers = { q1: null, q2: null, q3: null, q4: null, q5: null, q6: null, q7: [], q8: [] };
+    let currentQ = 1;
 
-  <!-- Signal -->
-  <div class="suite-item" data-tool="Signal">
-    <div class="suite-icon">
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g opacity=".97">
-          <circle class="ring" cx="253.22" cy="250" r="215.69" fill="none" stroke="#fd6ef8" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54"/>
-          <circle cx="253.7" cy="258.94" r="50.5" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54"/>
-          <path d="M363.28,352.24c21.42-25.13,34.37-57.69,34.37-93.3,0-79.5-64.45-143.95-143.95-143.95s-143.95,64.45-143.95,143.95c0,35.61,12.96,68.17,34.37,93.3" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="9.54"/>
-          <path d="M332.57,317.3c12.09-16.31,19.25-36.5,19.25-58.36,0-54.19-43.93-98.11-98.11-98.11s-98.11,43.93-98.11,98.11c0,21.86,7.16,42.05,19.25,58.36" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="9.54"/>
-        </g>
-      </svg>
-    </div>
-    <div class="suite-text">
-      <div class="suite-name"><span class="prefix">Level.</span>Signal</div>
-      <div class="suite-desc">Predictive lead &amp; value modeling built on Google Meridian.</div>
-    </div>
-  </div>
+    const tools = ['Signal', 'Pathfinder', 'Prism', 'Pulse', 'Foundry'];
+    const scores = { Signal: 0, Pathfinder: 0, Prism: 0, Pulse: 0, Foundry: 0 };
 
-  <!-- Pathfinder -->
-  <div class="suite-item" data-tool="Pathfinder">
-    <div class="suite-icon">
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g opacity=".97">
-          <path d="M135.59,295.69c-.02-5.71,2.11-11.21,5.97-15.41,4.36-4.79,10.53-7.52,17-7.53h181.9c11.95.18,22.13-8.66,23.63-20.52.66-6.4-1.46-12.78-5.81-17.53-4.32-4.73-10.43-7.44-16.84-7.44h-159.04c-12.07.18-22.35-8.75-23.85-20.73-.07-.76-.11-1.53-.11-2.29-.02-5.7,2.11-11.21,5.97-15.41,4.36-4.78,10.53-7.51,17-7.52h101.88c11.95.18,22.13-8.66,23.63-20.52,1.23-12.51-7.92-23.64-20.43-24.87-.74-.07-1.48-.11-2.22-.11h-34.29c-12.68-.01-22.96-10.29-22.97-22.97,0-.06.06-.1.12-.11.06,0,.1.05.11.11.02,12.56,10.19,22.73,22.74,22.75h34.29c6.47,0,12.65,2.73,17.01,7.52,3.86,4.21,5.99,9.71,5.97,15.42,0,.75-.04,1.53-.11,2.29-1.51,11.98-11.79,20.9-23.86,20.72h-101.88c-6.41,0-12.52,2.71-16.84,7.44-3.82,4.17-5.93,9.62-5.92,15.27,0,.75.03,1.51.11,2.26,1.5,11.86,11.67,20.7,23.63,20.52h159.04c6.48,0,12.65,2.73,17.01,7.52,3.86,4.21,5.99,9.71,5.97,15.42,0,.76-.05,1.53-.12,2.29-1.51,11.97-11.78,20.9-23.85,20.71h-181.9c-6.41,0-12.52,2.71-16.84,7.44-3.82,4.17-5.93,9.62-5.92,15.27,0,.75.03,1.5.11,2.25,1.49,11.86,11.67,20.71,23.63,20.53h101.89c6.47,0,12.64,2.74,17,7.53,4.4,4.79,6.53,11.23,5.86,17.7-1.5,11.98-11.78,20.9-23.85,20.72h-10.5c-12.53.01-22.68,10.16-22.69,22.69v.06c0,.06-.05.11-.11.11-.06,0-.11-.05-.12-.11v-.06c.02-12.65,10.27-22.89,22.92-22.91h10.5c11.95.17,22.12-8.66,23.62-20.51.66-6.41-1.46-12.79-5.82-17.53-4.31-4.74-10.41-7.45-16.82-7.46h-101.89c-12.07.18-22.35-8.74-23.86-20.72-.06-.77-.1-1.53-.1-2.29Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54"/>
-          <ellipse class="ring" cx="250" cy="250" rx="216.29" ry="216.27" fill="none" stroke="#fd6ef8" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54"/>
-        </g>
-      </svg>
-    </div>
-    <div class="suite-text">
-      <div class="suite-name"><span class="prefix">Level.</span>Pathfinder</div>
-      <div class="suite-desc">Deep customer intelligence across the full journey.</div>
-    </div>
-  </div>
+    // Per-tool accent colors for result cards
+    const toolColors = {
+      Signal: '#86D5F4',
+      Pathfinder: '#8EE34D',
+      Prism: '#FD6EF8',
+      Pulse: '#FFAA53',
+      Foundry: '#B07CFF'
+    };
 
-  <!-- Prism -->
-  <div class="suite-item" data-tool="Prism">
-    <div class="suite-icon">
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g opacity=".97">
-          <circle class="ring" cx="250" cy="250" r="215.82" fill="none" stroke="#fd6ef8" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54"/>
-          <path d="M219.21,165.24l-98.78,160.9,124.09,53.76,5.75-259.82,129.3,205.17-101.08,46.47" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54"/>
-        </g>
-      </svg>
-    </div>
-    <div class="suite-text">
-      <div class="suite-name"><span class="prefix">Level.</span>Prism</div>
-      <div class="suite-desc">Creative signal intelligence &amp; performance prediction.</div>
-    </div>
-  </div>
-
-  <!-- Pulse -->
-  <div class="suite-item" data-tool="Pulse">
-    <div class="suite-icon">
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g opacity=".97">
-          <circle class="ring" cx="250" cy="250" r="215.69" fill="none" stroke="#fd6ef8" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54"/>
-          <path d="M289.58,340.05c-10.06,0-14.89-43.73-19.99-90.03-4.85-44.09-9.88-89.71-19.61-89.71s-14.77,45.62-19.6,89.71c-5.1,46.3-9.91,90.03-19.99,90.03s-14.89-33.54-20-69.05c-4.85-33.8-9.87-68.74-19.62-68.74-9.16,0-12.92,17.16-16.88,35.31-4.54,20.96-9.25,42.58-22.73,42.58h-24.96c-.09,0-.17-.06-.18-.15v-.02c0-.09.07-.17.16-.18h24.98c13.19,0,17.87-21.49,22.41-42.28,4.01-18.32,7.76-35.62,17.23-35.62,10.06,0,14.89,33.55,19.99,69.06,4.85,33.79,9.88,68.74,19.62,68.74s14.76-45.61,19.62-89.71c5.1-46.3,9.93-90.03,19.99-90.03s14.89,43.73,19.97,90.03c4.86,44.09,9.89,89.71,19.62,89.71s14.77-34.95,19.62-68.74c5.1-35.51,9.93-69.06,20-69.06,9.46,0,13.24,17.3,17.23,35.62,4.47,20.78,9.18,42.28,22.33,42.28h24.97c.1,0,.18.07.18.17h0c0,.1-.08.17-.18.17h-24.97c-13.47,0-18.19-21.63-22.75-42.57-3.96-18.16-7.71-35.31-16.88-35.31-9.73,0-14.77,34.94-19.62,68.74-5.09,35.52-9.9,69.05-19.96,69.05Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54"/>
-        </g>
-      </svg>
-    </div>
-    <div class="suite-text">
-      <div class="suite-name"><span class="prefix">Level.</span>Pulse</div>
-      <div class="suite-desc">Live campaign performance &amp; real-time insights.</div>
-    </div>
-  </div>
-
-  <!-- Foundry -->
-  <div class="suite-item" data-tool="Foundry">
-    <div class="suite-icon">
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g opacity=".97">
-          <circle class="ring" cx="250" cy="249.99" r="215.69" fill="none" stroke="#fd6ef8" stroke-linecap="round" stroke-linejoin="round" stroke-width="9.54"/>
-          <path d="M306.69,212.11l-150.04,122.5c-2.89,2.35-3.31,6.6-.94,9.48l18.04,21.9c2.26,2.75,6.28,3.26,9.15,1.15,17.11-12.55,71.43-53.06,76.07-64.91,5.52-14.08,65.83-67.56,65.83-67.56l-18.1-22.56Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54"/>
-          <path d="M264.43,159.44l91.93,114.58c2.24,2.79,6.32,3.23,9.1.98l36-29.17c2.77-2.25,3.2-6.32.94-9.09l-54.33-66.79c-5.5-6.76-12.5-12.15-20.45-15.74h0c-8.95-4.04-18.8-5.66-28.57-4.69l-31.76,3.13c-3.32.33-4.95,4.2-2.86,6.8Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54"/>
-          <path d="M352.03,174.8l11.04-8.98c3.34-2.72,8.24-2.24,11,1.06l8.91,10.66c2.81,3.37,2.33,8.38-1.07,11.15l-11.19,9.1,20.2,24.83-46.11,37" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54"/>
-          <path d="M251.68,257.03l-55.01-44.91-18.1,22.56s26.55,23.68,45.77,44.68" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54"/>
-          <path d="M278.24,278.71l68.47,55.9c2.89,2.35,3.31,6.6.94,9.48l-18.04,21.9c-2.26,2.75-6.28,3.26-9.15,1.15-15.82-11.61-57.47-41.55-68.2-56.19" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54"/>
-          <path d="M238.93,159.44l-91.93,114.58c-2.24,2.79-6.32,3.23-9.1.98l-36-29.17c-2.77-2.25-3.2-6.32-.94-9.09l54.33-66.79c5.5-6.76,12.5-12.15,20.45-15.74h0c8.95-4.04,18.8-5.66,28.57-4.69l31.76,3.13c3.32.33,4.95,4.2,2.86,6.8Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54"/>
-          <path d="M151.33,174.8l-11.04-8.98c-3.34-2.72-8.24-2.24-11,1.06l-8.91,10.66c-2.81,3.37-2.33,8.38,1.07,11.15l11.19,9.1-20.2,24.83,46.11,37" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="9.54"/>
-        </g>
-      </svg>
-    </div>
-    <div class="suite-text">
-      <div class="suite-name"><span class="prefix">Level.</span>Foundry</div>
-      <div class="suite-desc">Agentic web development &amp; rapid optimization.</div>
-    </div>
-  </div>
-
-  </div><!-- /suite-grid -->
-  </div><!-- /suite-section-inner -->
-</div><!-- /suite-section -->
-
-<!-- QUIZ CTA -->
-<div class="quiz-cta">
-  <div class="accent-line" style="margin:0 auto 24px;"></div>
-  <h2>Find out which tools are right for you.</h2>
-  <p>Answer 8 quick questions and we'll build your personalized AI roadmap.</p>
-  <button class="btn-primary" onclick="openQuiz()">Take the Quiz &rarr;</button>
-</div>
-
-<!-- QUIZ OVERLAY -->
-<div class="quiz-overlay" id="quizOverlay">
-  <button class="quiz-close" onclick="closeQuiz()" aria-label="Close quiz">&#x2715;</button>
-
-  <div class="quiz-inner" id="quizInner">
-
-    <div class="progress-label" id="progressLabel">Question 1 of 8</div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:12.5%"></div></div>
-
-    <!-- Q1 -->
-    <div class="question-block active" id="q1">
-      <div class="q-number">01 / 08</div>
-      <div class="q-text">What's your biggest growth challenge right now?</div>
-      <div class="q-sub">Choose the one that resonates most.</div>
-      <div class="options">
-        <div class="option" onclick="selectOption(this,'q1',0)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Finding and prioritizing the right leads</div></div>
-        <div class="option" onclick="selectOption(this,'q1',1)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Understanding our customers deeply enough to reach them effectively</div></div>
-        <div class="option" onclick="selectOption(this,'q1',2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Figuring out what creative and messaging is actually working</div></div>
-        <div class="option" onclick="selectOption(this,'q1',3)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Getting clear performance insights fast enough to act on them</div></div>
-        <div class="option" onclick="selectOption(this,'q1',4)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Building and optimizing our web presence quickly enough</div></div>
-      </div>
-      <div class="quiz-nav">
-        <span></span>
-        <button class="btn-next" id="next1" disabled onclick="nextQ(1)">Next &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q2 -->
-    <div class="question-block" id="q2">
-      <div class="q-number">02 / 08</div>
-      <div class="q-text">How confident are you in your ability to identify your highest-value prospects?</div>
-      <div class="options">
-        <div class="option" onclick="selectOption(this,'q2',0)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Very confident — we have strong data and predictive models</div></div>
-        <div class="option" onclick="selectOption(this,'q2',1)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Somewhat — but we rely on gut instinct more than we'd like</div></div>
-        <div class="option" onclick="selectOption(this,'q2',2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Not very — we're casting a wide net and hoping</div></div>
-        <div class="option" onclick="selectOption(this,'q2',3)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We don't have a real lead prioritization process</div></div>
-      </div>
-      <div class="quiz-nav">
-        <button class="btn-back" onclick="prevQ(2)">&#x2190; Back</button>
-        <button class="btn-next" id="next2" disabled onclick="nextQ(2)">Next &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q3 -->
-    <div class="question-block" id="q3">
-      <div class="q-number">03 / 08</div>
-      <div class="q-text">How well do you understand your customer across their full journey?</div>
-      <div class="q-sub">From first awareness through to conversion and loyalty.</div>
-      <div class="options">
-        <div class="option" onclick="selectOption(this,'q3',0)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Very well — we have rich first-party data and clear, data-driven personas</div></div>
-        <div class="option" onclick="selectOption(this,'q3',1)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We understand parts of it but have significant blind spots</div></div>
-        <div class="option" onclick="selectOption(this,'q3',2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We have basic personas but they're not really data-driven</div></div>
-        <div class="option" onclick="selectOption(this,'q3',3)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Not well at all — we're largely guessing who our customer is</div></div>
-      </div>
-      <div class="quiz-nav">
-        <button class="btn-back" onclick="prevQ(3)">&#x2190; Back</button>
-        <button class="btn-next" id="next3" disabled onclick="nextQ(3)">Next &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q4 -->
-    <div class="question-block" id="q4">
-      <div class="q-number">04 / 08</div>
-      <div class="q-text">How do you decide what creative to make — and what to keep running?</div>
-      <div class="options">
-        <div class="option" onclick="selectOption(this,'q4',0)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We have a strong testing framework and clear creative analytics</div></div>
-        <div class="option" onclick="selectOption(this,'q4',1)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We look at performance data but can't always tell why things work</div></div>
-        <div class="option" onclick="selectOption(this,'q4',2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We go mostly on instinct and experience</div></div>
-        <div class="option" onclick="selectOption(this,'q4',3)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We'd love to predict what will work before we spend on it</div></div>
-      </div>
-      <div class="quiz-nav">
-        <button class="btn-back" onclick="prevQ(4)">&#x2190; Back</button>
-        <button class="btn-next" id="next4" disabled onclick="nextQ(4)">Next &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q5 -->
-    <div class="question-block" id="q5">
-      <div class="q-number">05 / 08</div>
-      <div class="q-text">How quickly can you access meaningful performance insights when a campaign is live?</div>
-      <div class="options">
-        <div class="option" onclick="selectOption(this,'q5',0)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">In real time — we have solid live dashboards and act fast</div></div>
-        <div class="option" onclick="selectOption(this,'q5',1)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Within a day or two, but the delay costs us optimization opportunities</div></div>
-        <div class="option" onclick="selectOption(this,'q5',2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">It takes too long — by the time we have data, it's hard to act</div></div>
-        <div class="option" onclick="selectOption(this,'q5',3)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We're often flying blind mid-campaign</div></div>
-      </div>
-      <div class="quiz-nav">
-        <button class="btn-back" onclick="prevQ(5)">&#x2190; Back</button>
-        <button class="btn-next" id="next5" disabled onclick="nextQ(5)">Next &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q6 -->
-    <div class="question-block" id="q6">
-      <div class="q-number">06 / 08</div>
-      <div class="q-text">How would you describe your ability to build and test web experiences quickly?</div>
-      <div class="options">
-        <div class="option" onclick="selectOption(this,'q6',0)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We move fast — we can spin up pages and run tests easily</div></div>
-        <div class="option" onclick="selectOption(this,'q6',1)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We're slow — web changes go through a long, frustrating process</div></div>
-        <div class="option" onclick="selectOption(this,'q6',2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We struggle to connect web performance to our broader marketing</div></div>
-        <div class="option" onclick="selectOption(this,'q6',3)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We need to build or rebuild fast and don't have the resources</div></div>
-      </div>
-      <div class="quiz-nav">
-        <button class="btn-back" onclick="prevQ(6)">&#x2190; Back</button>
-        <button class="btn-next" id="next6" disabled onclick="nextQ(6)">Next &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q7 -->
-    <div class="question-block" id="q7">
-      <div class="q-number">07 / 08</div>
-      <div class="q-text">What kind of data do you have access to today?</div>
-      <div class="q-sub">Select all that apply.</div>
-      <div class="options multi" id="q7opts">
-        <div class="option" onclick="selectMulti(this,'q7',0)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">First-party customer data (CRM, transactions, customer records)</div></div>
-        <div class="option" onclick="selectMulti(this,'q7',1)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Third-party audience or market data</div></div>
-        <div class="option" onclick="selectMulti(this,'q7',2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Campaign and media performance data</div></div>
-        <div class="option" onclick="selectMulti(this,'q7',3)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Website and conversion data</div></div>
-        <div class="option" onclick="selectMulti(this,'q7',4)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">We have limited data and need help building a foundation</div></div>
-      </div>
-      <div class="quiz-nav">
-        <button class="btn-back" onclick="prevQ(7)">&#x2190; Back</button>
-        <button class="btn-next" id="next7" disabled onclick="nextQ(7)">Next &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Q8 -->
-    <div class="question-block" id="q8">
-      <div class="q-number">08 / 08</div>
-      <div class="q-text">What does success look like for you in the next 12 months?</div>
-      <div class="q-sub">Select up to 2.</div>
-      <div class="options multi" id="q8opts">
-        <div class="option" onclick="selectMultiMax(this,'q8',0,2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Drive more qualified leads and improve conversion rates</div></div>
-        <div class="option" onclick="selectMultiMax(this,'q8',1,2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Get smarter about who our customers are and how to reach them</div></div>
-        <div class="option" onclick="selectMultiMax(this,'q8',2,2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Make our creative work harder and spend more efficiently</div></div>
-        <div class="option" onclick="selectMultiMax(this,'q8',3,2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Have real-time visibility into what's working so we can move fast</div></div>
-        <div class="option" onclick="selectMultiMax(this,'q8',4,2)"><div class="option-marker"><div class="option-marker-dot"></div></div><div class="option-text">Build and optimize our digital presence faster than ever before</div></div>
-      </div>
-      <div class="quiz-nav">
-        <button class="btn-back" onclick="prevQ(8)">&#x2190; Back</button>
-        <button class="btn-next final" id="next8" disabled onclick="showResults()">See My Results &rarr;</button>
-      </div>
-    </div>
-
-    <!-- RESULTS -->
-    <div id="results">
-      <div class="results-header">
-        <div class="results-eyebrow">Your AI Roadmap</div>
-        <h2>Here's where LEVEL Intelligence can make the biggest impact.</h2>
-        <p>Based on your responses, here are the tools we'd recommend — starting with your highest-impact opportunity.</p>
-      </div>
-      <div id="resultsCards"></div>
-      <div class="results-footer">
-        <p>Ready to put these tools to work? Let's talk about your roadmap.</p>
-        <button class="btn-primary" onclick="window.open('https://www.level.agency/book-a-strategy-call/','_blank')">Talk to Our Team &rarr;</button>
-        <button class="btn-restart" onclick="restartQuiz()">Retake Quiz</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<script>
-  // State
-  const answers = { q1: null, q2: null, q3: null, q4: null, q5: null, q6: null, q7: [], q8: [] };
-  let currentQ = 1;
-
-  const tools = ['Signal','Pathfinder','Prism','Pulse','Foundry'];
-  const scores = { Signal:0, Pathfinder:0, Prism:0, Pulse:0, Foundry:0 };
-
-  // Per-tool accent colors for result cards
-  const toolColors = {
-    Signal:    '#86D5F4',
-    Pathfinder:'#8EE34D',
-    Prism:     '#FD6EF8',
-    Pulse:     '#FFAA53',
-    Foundry:   '#B07CFF'
-  };
-
-  // Scoring maps
-  const scoringMap = {
-    q1: [
-      { Signal:2 },
-      { Pathfinder:2 },
-      { Prism:2 },
-      { Pulse:2 },
-      { Foundry:2 }
-    ],
-    q2: [
-      {},
-      { Signal:1 },
-      { Signal:2 },
-      { Signal:3 }
-    ],
-    q3: [
-      {},
-      { Pathfinder:1 },
-      { Pathfinder:2 },
-      { Pathfinder:3 }
-    ],
-    q4: [
-      {},
-      { Prism:2 },
-      { Prism:2 },
-      { Prism:3 }
-    ],
-    q5: [
-      {},
-      { Pulse:1 },
-      { Pulse:2 },
-      { Pulse:3 }
-    ],
-    q6: [
-      {},
-      { Foundry:2 },
-      { Foundry:2 },
-      { Foundry:3 }
-    ],
-    q7: [
-      { Pathfinder:1, Signal:1 },
-      { Pathfinder:1 },
-      { Pulse:1, Prism:1 },
-      { Foundry:1, Pulse:1 },
-      { Signal:1, Pathfinder:1 }
-    ],
-    q8: [
-      { Signal:2 },
-      { Pathfinder:2 },
-      { Prism:2 },
-      { Pulse:2 },
-      { Foundry:2 }
-    ]
-  };
-
-  const toolDescriptions = {
-    Signal: {
-      name: 'Signal',
-      tag: 'Predictive Lead & Value Modeling',
-      whys: [
-        'You\'re leaving qualified leads on the table. Signal, built in partnership with Google on the Meridian platform, uses predictive modeling to surface your highest-value opportunities before your competition does.',
-        'Even with some confidence in your lead process, Signal can add a layer of predictive intelligence that moves you from reactive to proactive — prioritizing spend and effort where it matters most.',
-        'Signal is built for teams ready to move beyond instinct. It uses Google Meridian signals to identify and rank your best possible leads with data-driven precision.'
+    // Scoring maps
+    const scoringMap = {
+      q1: [
+        { Signal: 2 },
+        { Pathfinder: 2 },
+        { Prism: 2 },
+        { Pulse: 2 },
+        { Foundry: 2 }
+      ],
+      q2: [
+        {},
+        { Signal: 1 },
+        { Signal: 2 },
+        { Signal: 3 }
+      ],
+      q3: [
+        {},
+        { Pathfinder: 1 },
+        { Pathfinder: 2 },
+        { Pathfinder: 3 }
+      ],
+      q4: [
+        {},
+        { Prism: 2 },
+        { Prism: 2 },
+        { Prism: 3 }
+      ],
+      q5: [
+        {},
+        { Pulse: 1 },
+        { Pulse: 2 },
+        { Pulse: 3 }
+      ],
+      q6: [
+        {},
+        { Foundry: 2 },
+        { Foundry: 2 },
+        { Foundry: 3 }
+      ],
+      q7: [
+        { Pathfinder: 1, Signal: 1 },
+        { Pathfinder: 1 },
+        { Pulse: 1, Prism: 1 },
+        { Foundry: 1, Pulse: 1 },
+        { Signal: 1, Pathfinder: 1 }
+      ],
+      q8: [
+        { Signal: 2 },
+        { Pathfinder: 2 },
+        { Prism: 2 },
+        { Pulse: 2 },
+        { Foundry: 2 }
       ]
-    },
-    Pathfinder: {
-      name: 'Pathfinder',
-      tag: 'Full-Journey Customer Intelligence',
-      whys: [
-        'Your personas aren\'t doing the work they should. Pathfinder combines your first-party data with third-party signals to build a complete, dynamic picture of your customer at every stage of their journey.',
-        'Blind spots in your customer journey cost you conversions. Pathfinder fills those gaps by layering 1P and 3P data to give you actionable intelligence across the full funnel.',
-        'Pathfinder helps teams build the data foundation their marketing is missing — turning scattered signals into deep, usable customer understanding.'
-      ]
-    },
-    Prism: {
-      name: 'Prism',
-      tag: 'Creative Signal Intelligence',
-      whys: [
-        'You want to know what will perform before you invest. Prism analyzes creative signals at scale to predict performance — so you can make smarter bets, cut waste, and build on what actually works.',
-        'Knowing your numbers isn\'t enough. Prism tells you why creative performs so you can replicate success and stop guessing.',
-        'Prism turns creative decisions from art into science — giving your team the intelligence to move faster and spend smarter.'
-      ]
-    },
-    Pulse: {
-      name: 'Pulse',
-      tag: 'Real-Time Performance Intelligence',
-      whys: [
-        'Mid-campaign blind spots are costing you. Pulse gives you live performance intelligence so you can optimize in the moment — not after the damage is done.',
-        'A day or two of lag is a day or two of lost efficiency. Pulse closes the gap between data and action with real-time campaign insights.',
-        'Pulse is the always-on intelligence layer your campaigns need — giving your team the visibility to make confident decisions, fast.'
-      ]
-    },
-    Foundry: {
-      name: 'Foundry',
-      tag: 'Agentic Web Development & Optimization',
-      whys: [
-        'Slow web cycles are a real competitive disadvantage. Foundry lets us build, test, and optimize your digital experience at a speed your internal process can\'t match.',
-        'Your web presence should be a growth engine, not a bottleneck. Foundry connects web performance to your marketing goals and accelerates the build-test-optimize cycle.',
-        'Foundry gives teams without big dev resources the ability to move fast online — rapid builds, intelligent optimization, and a direct line to performance.'
-      ]
+    };
+
+    const toolDescriptions = {
+      Signal: {
+        name: 'Signal',
+        tag: 'Predictive Lead & Value Modeling',
+        whys: [
+          'You\'re leaving qualified leads on the table. Signal, built in partnership with Google on the Meridian platform, uses predictive modeling to surface your highest-value opportunities before your competition does.',
+          'Even with some confidence in your lead process, Signal can add a layer of predictive intelligence that moves you from reactive to proactive — prioritizing spend and effort where it matters most.',
+          'Signal is built for teams ready to move beyond instinct. It uses Google Meridian signals to identify and rank your best possible leads with data-driven precision.'
+        ]
+      },
+      Pathfinder: {
+        name: 'Pathfinder',
+        tag: 'Full-Journey Customer Intelligence',
+        whys: [
+          'Your personas aren\'t doing the work they should. Pathfinder combines your first-party data with third-party signals to build a complete, dynamic picture of your customer at every stage of their journey.',
+          'Blind spots in your customer journey cost you conversions. Pathfinder fills those gaps by layering 1P and 3P data to give you actionable intelligence across the full funnel.',
+          'Pathfinder helps teams build the data foundation their marketing is missing — turning scattered signals into deep, usable customer understanding.'
+        ]
+      },
+      Prism: {
+        name: 'Prism',
+        tag: 'Creative Signal Intelligence',
+        whys: [
+          'You want to know what will perform before you invest. Prism analyzes creative signals at scale to predict performance — so you can make smarter bets, cut waste, and build on what actually works.',
+          'Knowing your numbers isn\'t enough. Prism tells you why creative performs so you can replicate success and stop guessing.',
+          'Prism turns creative decisions from art into science — giving your team the intelligence to move faster and spend smarter.'
+        ]
+      },
+      Pulse: {
+        name: 'Pulse',
+        tag: 'Real-Time Performance Intelligence',
+        whys: [
+          'Mid-campaign blind spots are costing you. Pulse gives you live performance intelligence so you can optimize in the moment — not after the damage is done.',
+          'A day or two of lag is a day or two of lost efficiency. Pulse closes the gap between data and action with real-time campaign insights.',
+          'Pulse is the always-on intelligence layer your campaigns need — giving your team the visibility to make confident decisions, fast.'
+        ]
+      },
+      Foundry: {
+        name: 'Foundry',
+        tag: 'Agentic Web Development & Optimization',
+        whys: [
+          'Slow web cycles are a real competitive disadvantage. Foundry lets us build, test, and optimize your digital experience at a speed your internal process can\'t match.',
+          'Your web presence should be a growth engine, not a bottleneck. Foundry connects web performance to your marketing goals and accelerates the build-test-optimize cycle.',
+          'Foundry gives teams without big dev resources the ability to move fast online — rapid builds, intelligent optimization, and a direct line to performance.'
+        ]
+      }
+    };
+
+    function openQuiz() {
+      document.getElementById('quizOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
-  };
 
-  function openQuiz() {
-    document.getElementById('quizOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
+    function closeQuiz() {
+      document.getElementById('quizOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
-  function closeQuiz() {
-    document.getElementById('quizOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  function selectOption(el, qId, idx) {
-    const opts = el.parentElement.querySelectorAll('.option');
-    opts.forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-    answers[qId] = idx;
-    document.getElementById('next' + qId.replace('q','')).disabled = false;
-  }
-
-  function selectMulti(el, qId, idx) {
-    if (el.classList.contains('selected')) {
-      el.classList.remove('selected');
-      answers[qId] = answers[qId].filter(i => i !== idx);
-    } else {
+    function selectOption(el, qId, idx) {
+      const opts = el.parentElement.querySelectorAll('.option');
+      opts.forEach(o => o.classList.remove('selected'));
       el.classList.add('selected');
-      answers[qId] = [...answers[qId], idx];
+      answers[qId] = idx;
+      document.getElementById('next' + qId.replace('q', '')).disabled = false;
     }
-    const qNum = qId.replace('q','');
-    document.getElementById('next' + qNum).disabled = answers[qId].length === 0;
-  }
 
-  function selectMultiMax(el, qId, idx, max) {
-    const selected = answers[qId];
-    if (el.classList.contains('selected')) {
-      el.classList.remove('selected');
-      answers[qId] = selected.filter(i => i !== idx);
-    } else {
-      if (selected.length >= max) {
-        const opts = el.parentElement.querySelectorAll('.option.selected');
-        opts[0].classList.remove('selected');
-        answers[qId] = selected.filter(i => i !== selected[0]);
+    function selectMulti(el, qId, idx) {
+      if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+        answers[qId] = answers[qId].filter(i => i !== idx);
+      } else {
+        el.classList.add('selected');
+        answers[qId] = [...answers[qId], idx];
       }
-      el.classList.add('selected');
-      answers[qId] = [...answers[qId], idx];
+      const qNum = qId.replace('q', '');
+      document.getElementById('next' + qNum).disabled = answers[qId].length === 0;
     }
-    const qNum = qId.replace('q','');
-    document.getElementById('next' + qNum).disabled = answers[qId].length === 0;
-  }
 
-  function nextQ(n) {
-    document.getElementById('q' + n).classList.remove('active');
-    document.getElementById('q' + (n+1)).classList.add('active');
-    currentQ = n + 1;
-    updateProgress();
-    document.getElementById('quizInner').scrollTop = 0;
-    window.scrollTo(0,0);
-  }
-
-  function prevQ(n) {
-    document.getElementById('q' + n).classList.remove('active');
-    document.getElementById('q' + (n-1)).classList.add('active');
-    currentQ = n - 1;
-    updateProgress();
-  }
-
-  function updateProgress() {
-    const pct = (currentQ / 8) * 100;
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressLabel').textContent = 'Question ' + currentQ + ' of 8';
-  }
-
-  function computeScores() {
-    tools.forEach(t => scores[t] = 0);
-
-    ['q1','q2','q3','q4','q5','q6'].forEach(qId => {
-      const idx = answers[qId];
-      if (idx !== null && scoringMap[qId][idx]) {
-        const pts = scoringMap[qId][idx];
-        Object.keys(pts).forEach(t => scores[t] += pts[t]);
+    function selectMultiMax(el, qId, idx, max) {
+      const selected = answers[qId];
+      if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+        answers[qId] = selected.filter(i => i !== idx);
+      } else {
+        if (selected.length >= max) {
+          const opts = el.parentElement.querySelectorAll('.option.selected');
+          opts[0].classList.remove('selected');
+          answers[qId] = selected.filter(i => i !== selected[0]);
+        }
+        el.classList.add('selected');
+        answers[qId] = [...answers[qId], idx];
       }
-    });
+      const qNum = qId.replace('q', '');
+      document.getElementById('next' + qNum).disabled = answers[qId].length === 0;
+    }
 
-    answers.q7.forEach(idx => {
-      const pts = scoringMap.q7[idx];
-      if (pts) Object.keys(pts).forEach(t => scores[t] += pts[t]);
-    });
+    function nextQ(n) {
+      document.getElementById('q' + n).classList.remove('active');
+      document.getElementById('q' + (n + 1)).classList.add('active');
+      currentQ = n + 1;
+      updateProgress();
+      document.getElementById('quizInner').scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
 
-    answers.q8.forEach(idx => {
-      const pts = scoringMap.q8[idx];
-      if (pts) Object.keys(pts).forEach(t => scores[t] += pts[t]);
-    });
-  }
+    function prevQ(n) {
+      document.getElementById('q' + n).classList.remove('active');
+      document.getElementById('q' + (n - 1)).classList.add('active');
+      currentQ = n - 1;
+      updateProgress();
+    }
 
-  function getWhyIndex(tool) {
-    if (tool === 'Signal')     return answers.q2 >= 2 ? 0 : answers.q2 === 1 ? 1 : 2;
-    if (tool === 'Pathfinder') return answers.q3 >= 2 ? 0 : answers.q3 === 1 ? 1 : 2;
-    if (tool === 'Prism')      return answers.q4 === 3 ? 0 : answers.q4 >= 1 ? 1 : 2;
-    if (tool === 'Pulse')      return answers.q5 >= 2 ? 0 : answers.q5 === 1 ? 1 : 2;
-    if (tool === 'Foundry')    return answers.q6 >= 2 ? 0 : answers.q6 === 1 ? 1 : 2;
-    return 0;
-  }
+    function updateProgress() {
+      const pct = (currentQ / 8) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressLabel').textContent = 'Question ' + currentQ + ' of 8';
+    }
 
-  function showResults() {
-    computeScores();
+    function computeScores() {
+      tools.forEach(t => scores[t] = 0);
 
-    const maxScore = 10;
-    const sorted = tools.slice().sort((a,b) => scores[b] - scores[a]);
-    const primary = sorted.filter(t => scores[t] >= 4);
-    const secondary = sorted.filter(t => scores[t] > 0 && scores[t] < 4);
+      ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].forEach(qId => {
+        const idx = answers[qId];
+        if (idx !== null && scoringMap[qId][idx]) {
+          const pts = scoringMap[qId][idx];
+          Object.keys(pts).forEach(t => scores[t] += pts[t]);
+        }
+      });
 
-    document.querySelectorAll('.question-block').forEach(b => b.classList.remove('active'));
-    document.getElementById('progressLabel').textContent = 'Your Results';
-    document.getElementById('progressFill').style.width = '100%';
+      answers.q7.forEach(idx => {
+        const pts = scoringMap.q7[idx];
+        if (pts) Object.keys(pts).forEach(t => scores[t] += pts[t]);
+      });
 
-    const container = document.getElementById('resultsCards');
-    container.innerHTML = '';
+      answers.q8.forEach(idx => {
+        const pts = scoringMap.q8[idx];
+        if (pts) Object.keys(pts).forEach(t => scores[t] += pts[t]);
+      });
+    }
 
-    const allRecs = primary.length > 0 ? primary : sorted.slice(0,3);
+    function getWhyIndex(tool) {
+      if (tool === 'Signal') return answers.q2 >= 2 ? 0 : answers.q2 === 1 ? 1 : 2;
+      if (tool === 'Pathfinder') return answers.q3 >= 2 ? 0 : answers.q3 === 1 ? 1 : 2;
+      if (tool === 'Prism') return answers.q4 === 3 ? 0 : answers.q4 >= 1 ? 1 : 2;
+      if (tool === 'Pulse') return answers.q5 >= 2 ? 0 : answers.q5 === 1 ? 1 : 2;
+      if (tool === 'Foundry') return answers.q6 >= 2 ? 0 : answers.q6 === 1 ? 1 : 2;
+      return 0;
+    }
 
-    allRecs.forEach((tool, i) => {
-      const info = toolDescriptions[tool];
-      const sc = scores[tool];
-      const pct = Math.min(100, Math.round((sc / maxScore) * 100));
-      const isPrimary = i === 0;
-      const whyIdx = getWhyIndex(tool);
-      const accentColor = toolColors[tool];
+    function showResults() {
+      computeScores();
 
-      const card = document.createElement('div');
-      card.className = 'result-card ' + (isPrimary ? 'primary' : 'secondary');
-      if (isPrimary) {
-        card.style.borderColor = accentColor;
-        card.style.background = accentColor.replace('#', 'rgba(') + '0.05)';
-      }
-      card.innerHTML = `
+      const maxScore = 10;
+      const sorted = tools.slice().sort((a, b) => scores[b] - scores[a]);
+      const primary = sorted.filter(t => scores[t] >= 4);
+      const secondary = sorted.filter(t => scores[t] > 0 && scores[t] < 4);
+
+      document.querySelectorAll('.question-block').forEach(b => b.classList.remove('active'));
+      document.getElementById('progressLabel').textContent = 'Your Results';
+      document.getElementById('progressFill').style.width = '100%';
+
+      const container = document.getElementById('resultsCards');
+      container.innerHTML = '';
+
+      const allRecs = primary.length > 0 ? primary : sorted.slice(0, 3);
+
+      allRecs.forEach((tool, i) => {
+        const info = toolDescriptions[tool];
+        const sc = scores[tool];
+        const pct = Math.min(100, Math.round((sc / maxScore) * 100));
+        const isPrimary = i === 0;
+        const whyIdx = getWhyIndex(tool);
+        const accentColor = toolColors[tool];
+
+        const card = document.createElement('div');
+        card.className = 'result-card ' + (isPrimary ? 'primary' : 'secondary');
+        if (isPrimary) {
+          card.style.borderColor = accentColor;
+          card.style.background = accentColor.replace('#', 'rgba(') + '0.05)';
+        }
+        card.innerHTML = `
         <div class="result-tool-name"><span class="prefix" style="color:${isPrimary ? accentColor : 'rgba(255,255,255,0.45)'}">Level.</span>${info.name}</div>
         <div class="result-tag">${info.tag}</div>
         <div class="score-bar-wrap">
           <div class="score-bar-label"><span>Relevance</span><span>${pct}%</span></div>
           <div class="score-bar"><div class="score-bar-fill" style="width:${pct}%;background:${isPrimary ? accentColor : 'rgba(255,255,255,0.35)'}"></div></div>
         </div>
-        <div class="result-why" style="margin-top:20px;">${info.whys[Math.min(whyIdx, info.whys.length-1)]}</div>
+        <div class="result-why" style="margin-top:20px;">${info.whys[Math.min(whyIdx, info.whys.length - 1)]}</div>
         <button class="result-cta" style="color:${accentColor};border-bottom-color:${accentColor}44" onclick="window.open('https://www.level.agency/book-a-strategy-call/','_blank')">Talk to us about ${tool} &rarr;</button>
       `;
-      container.appendChild(card);
-    });
+        container.appendChild(card);
+      });
 
-    if (secondary.length > 0 && primary.length > 0) {
-      const label = document.createElement('div');
-      label.style.cssText = 'font-size:0.8125rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin:36px 0 16px;';
-      label.textContent = 'Also worth exploring';
-      container.appendChild(label);
+      if (secondary.length > 0 && primary.length > 0) {
+        const label = document.createElement('div');
+        label.style.cssText = 'font-size:0.8125rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin:36px 0 16px;';
+        label.textContent = 'Also worth exploring';
+        container.appendChild(label);
 
-      secondary.forEach(tool => {
-        const info = toolDescriptions[tool];
-        const sc = scores[tool];
-        const pct = Math.min(100, Math.round((sc / maxScore) * 100));
-        const accentColor = toolColors[tool];
-        const card = document.createElement('div');
-        card.className = 'result-card secondary';
-        card.innerHTML = `
+        secondary.forEach(tool => {
+          const info = toolDescriptions[tool];
+          const sc = scores[tool];
+          const pct = Math.min(100, Math.round((sc / maxScore) * 100));
+          const accentColor = toolColors[tool];
+          const card = document.createElement('div');
+          card.className = 'result-card secondary';
+          card.innerHTML = `
           <div class="result-tool-name"><span class="prefix" style="color:rgba(255,255,255,0.45)">Level.</span>${info.name}</div>
           <div class="result-tag">${info.tag}</div>
           <div class="score-bar-wrap">
@@ -1231,29 +1612,30 @@
             <div class="score-bar"><div class="score-bar-fill" style="width:${pct}%;background:rgba(255,255,255,0.35)"></div></div>
           </div>
         `;
-        container.appendChild(card);
-      });
+          container.appendChild(card);
+        });
+      }
+
+      document.getElementById('results').style.display = 'block';
+      window.scrollTo(0, 0);
     }
 
-    document.getElementById('results').style.display = 'block';
-    window.scrollTo(0,0);
-  }
+    function restartQuiz() {
+      Object.keys(answers).forEach(k => { answers[k] = Array.isArray(answers[k]) ? [] : null; });
+      tools.forEach(t => scores[t] = 0);
+      currentQ = 1;
 
-  function restartQuiz() {
-    Object.keys(answers).forEach(k => { answers[k] = Array.isArray(answers[k]) ? [] : null; });
-    tools.forEach(t => scores[t] = 0);
-    currentQ = 1;
+      document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      document.querySelectorAll('.btn-next').forEach(b => b.disabled = true);
+      document.getElementById('results').style.display = 'none';
+      document.getElementById('resultsCards').innerHTML = '';
 
-    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-    document.querySelectorAll('.btn-next').forEach(b => b.disabled = true);
-    document.getElementById('results').style.display = 'none';
-    document.getElementById('resultsCards').innerHTML = '';
-
-    document.querySelectorAll('.question-block').forEach(b => b.classList.remove('active'));
-    document.getElementById('q1').classList.add('active');
-    updateProgress();
-    window.scrollTo(0,0);
-  }
-</script>
+      document.querySelectorAll('.question-block').forEach(b => b.classList.remove('active'));
+      document.getElementById('q1').classList.add('active');
+      updateProgress();
+      window.scrollTo(0, 0);
+    }
+  </script>
 </body>
+
 </html>
